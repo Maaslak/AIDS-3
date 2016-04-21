@@ -81,6 +81,9 @@ for(int i=0; i<n+1; i++){
 cout<<'\n';
 }
 
+void DFSSortTopList(vector <int>* ListaNast, int n){
+
+}
 
 int main(){
 fstream plik;
