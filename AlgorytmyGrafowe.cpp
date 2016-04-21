@@ -1,6 +1,7 @@
 #include <iostream>
 #include <fstream>
 #include <vector>
+#include <stack>
 
 int n;
 
@@ -81,6 +82,65 @@ for(int i=0; i<n+1; i++){
 cout<<'\n';
 }
 
+enum Odwiedz{ODWIEDZ, PRZETWO, NIEODWIE};
+
+Odwiedz* CzyOdwiedzone;
+stack <int> DoDfsa;
+
+bool ZerujTabCzyOdwiedzone(int n){
+for(int i=0; i<n+1; i++)
+    CzyOdwiedzone[i]=NIEODWIE;
+}
+
+bool DFSSortTopList(vector <int>* ListaNast, int cur){
+ if(CzyOdwiedzone[cur]==ODWIEDZ){
+    cout<<"Jest cykl, nie da sieposortowac topologicznie\n";
+    return false;
+ }
+ if(CzyOdwiedzone[cur]==NIEODWIE){
+     CzyOdwiedzone[cur]=ODWIEDZ;
+        for(int i=0; i<ListaNast[cur].size(); i++)
+        if(!DFSSortTopList(ListaNast, ListaNast[cur][i]))return false;
+     CzyOdwiedzone[cur]=PRZETWO;
+     DoDfsa.push(cur);
+ }
+ return true;
+}
+
+bool DFSSortTopMacSas(short int** Macierz, int n, int cur){
+ if(CzyOdwiedzone[cur]==ODWIEDZ){
+    cout<<"Jest cykl, nie da sieposortowac topologicznie\n";
+    return false;
+ }
+ if(CzyOdwiedzone[cur]==NIEODWIE){
+     CzyOdwiedzone[cur]=ODWIEDZ;
+        for(int i=0; i<n+1; i++)
+        if(Macierz[cur][i]==1 && !DFSSortTopMacSas(Macierz, n, i))return false;
+     CzyOdwiedzone[cur]=PRZETWO;
+     DoDfsa.push(cur);
+ }
+ return true;
+}
+
+bool DFSSortTopMacGraf(int** Macierz, int n, int cur){
+ if(CzyOdwiedzone[cur]==ODWIEDZ){
+    cout<<"Jest cykl, nie da sie posortowac topologicznie\n";
+    return false;
+ }
+ if(CzyOdwiedzone[cur]==NIEODWIE){
+     CzyOdwiedzone[cur]=ODWIEDZ;
+        int temp=Macierz[cur][0];
+        while(temp!=Macierz[cur][temp]){
+                //cout<<temp<<'\n';
+        if(!DFSSortTopMacGraf(Macierz, n, temp))return false;
+        temp=Macierz[cur][temp];
+        }
+     CzyOdwiedzone[cur]=PRZETWO;
+     DoDfsa.push(cur);
+ }
+ return true;
+}
+
 
 int main(){
 fstream plik;
@@ -121,7 +181,41 @@ WyswietlListeNastepnikow(ListaNast, n);
 WyswietlMacierzSas(MacierzSas, n);
 WyswietlMacierzGraf(MacierzGrafu, n);
 
+CzyOdwiedzone=new Odwiedz[n+1];
+ZerujTabCzyOdwiedzone(n);
+for(int i=1; i<n+1; i++)
+    if(CzyOdwiedzone[i]==NIEODWIE)
+        if(!DFSSortTopList(ListaNast, i))break;
+cout<<"Sortowanie topologiczne listy nastepnikow DFS: ";
+while(!DoDfsa.empty()){
+    cout<<DoDfsa.top()<<' ';
+    DoDfsa.pop();
+}
+cout<<'\n';
 
+ZerujTabCzyOdwiedzone(n);
+for(int i=1; i<n+1; i++)
+    if(CzyOdwiedzone[i]==NIEODWIE)
+        if(!DFSSortTopMacSas(MacierzSas, n, i))break;
+cout<<"Sortowanie topologiczne macierzy sasiedztwa DFS: ";
+while(!DoDfsa.empty()){
+    cout<<DoDfsa.top()<<' ';
+    DoDfsa.pop();
+}
+cout<<'\n';
+
+ZerujTabCzyOdwiedzone(n);
+for(int i=1; i<n+1; i++)
+    if(CzyOdwiedzone[i]==NIEODWIE)
+        if(!DFSSortTopMacGraf(MacierzGrafu, n, i))break;
+cout<<"Sortowanie topologiczne macierzy grafu DFS: ";
+while(!DoDfsa.empty()){
+    cout<<DoDfsa.top()<<' ';
+    DoDfsa.pop();
+}
+cout<<'\n';
+
+delete (CzyOdwiedzone);
 WyczyscListe(ListaNast, n);
 //Czyszczenie Macierzy sasiedztwa
 for(int i=1; i<n+1; i++)
