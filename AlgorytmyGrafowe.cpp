@@ -83,6 +83,7 @@ for(int i=0; i<n+1; i++){
 cout<<'\n';
 }
 
+<<<<<<< HEAD
 enum Odwiedz{ODWIEDZ, PRZETWO, NIEODWIE};
 
 Odwiedz* CzyOdwiedzone;
@@ -261,6 +262,9 @@ void DelSortTopMacGraf(int ** Macierz, int n){
         }
     }
     cout<<'\n';
+=======
+void DFSSortTopList(vector <int>* ListaNast, int n){
+>>>>>>> refs/remotes/origin/Maaslak-patch-1
 
 }
 
