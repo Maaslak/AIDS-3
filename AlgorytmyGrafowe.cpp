@@ -83,6 +83,10 @@ for(int i=0; i<n+1; i++){
 cout<<'\n';
 }
 
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> parent of de9db24... 1.4
 enum Odwiedz{ODWIEDZ, PRZETWO, NIEODWIE};
 
 Odwiedz* CzyOdwiedzone;
@@ -188,11 +192,18 @@ cout<<"Sortowanie topologiczne listy nastepnikow przez usuwanie wezla: ";
     int ilewykr=0;
     for (int i=1;i<=n;i++)
         czywykr[i]=0;
+<<<<<<< HEAD
     while(ilewykr<n)
     {
         for(int i=1;i<=n;i++)
         {
             if(!czywykr[i]){
+=======
+    while(ilewykr!=n)
+    {
+        for(int i=1;i<=n;i++)
+        {
+>>>>>>> parent of de9db24... 1.4
             bool temp=1;
             for(int j=1;j<=n;j++)
             {
@@ -212,26 +223,41 @@ cout<<"Sortowanie topologiczne listy nastepnikow przez usuwanie wezla: ";
                 czywykr[i]=true;
                 ilewykr++;
             }
+<<<<<<< HEAD
             }
+=======
+>>>>>>> parent of de9db24... 1.4
         }
     }
     cout<<'\n';
 }
 
 void UsunWezelMacGraf(int** Macierz, int ktory){
+<<<<<<< HEAD
 
 for(int i=0; i<=n+1; i++)
     Macierz[ktory][i]=0;
 for(int i=1; i<n+1; i++){
     if(i!=ktory && Macierz[i][n+1]!=0 && Macierz[i][ktory]>0){
+=======
+for(int i=0; i<=n+1; i++)
+    Macierz[ktory][i]=0;
+for(int i=1; i<n+1; i++){
+    if(i!=ktory && Macierz[i][n+1]!=0){
+>>>>>>> parent of de9db24... 1.4
             //cout<<'\n'<<i<<' '<<Macierz[i][n+1]<<'\n';
             int przed=Macierz[i][n+1]-n, za=Macierz[i][ktory]-n;
             if(przed==ktory && za==ktory)
                 Macierz[i][n+1]=0;
             else if(przed==ktory)
                 Macierz[i][n+1]=za+n;
+<<<<<<< HEAD
             if(przed!=ktory && za!=ktory){
             while(Macierz[i][przed]!=ktory+n || Macierz[i][przed]!=przed+n)
+=======
+            else{
+            while(Macierz[i][przed]!=ktory)
+>>>>>>> parent of de9db24... 1.4
                 przed=Macierz[i][przed]-n;
             if(za==ktory)
                 Macierz[i][przed]=przed+n;
@@ -264,6 +290,12 @@ void DelSortTopMacGraf(int ** Macierz, int n){
         }
     }
     cout<<'\n';
+<<<<<<< HEAD
+=======
+=======
+void DFSSortTopList(vector <int>* ListaNast, int n){
+>>>>>>> refs/remotes/origin/Maaslak-patch-1
+>>>>>>> parent of de9db24... 1.4
 
 }
 
@@ -317,7 +349,11 @@ while(!DoDfsa.empty()){
     DoDfsa.pop();
 }
 cout<<'\n';
+<<<<<<< HEAD
 
+=======
+getchar();
+>>>>>>> parent of de9db24... 1.4
 
 ZerujTabCzyOdwiedzone(n);
 for(int i=1; i<n+1; i++)
@@ -329,7 +365,11 @@ while(!DoDfsa.empty()){
     DoDfsa.pop();
 }
 cout<<'\n';
+<<<<<<< HEAD
 
+=======
+getchar();
+>>>>>>> parent of de9db24... 1.4
 
 ZerujTabCzyOdwiedzone(n);
 for(int i=1; i<n+1; i++)
@@ -341,11 +381,21 @@ while(!DoDfsa.empty()){
     DoDfsa.pop();
 }
 cout<<'\n';
+<<<<<<< HEAD
 DELSortTopMacSas(MacierzSas, n);
 DelSortTopListaNast(ListaNast, n);
 
 DelSortTopMacGraf(MacierzGrafu, n);
 
+=======
+getchar();
+DELSortTopMacSas(MacierzSas, n);
+getchar();
+//DelSortTopListaNast(ListaNast, n);
+//getchar();
+DelSortTopMacGraf(MacierzGrafu, n);
+getchar();
+>>>>>>> parent of de9db24... 1.4
 
 delete (CzyOdwiedzone);
 WyczyscListe(ListaNast, n);
