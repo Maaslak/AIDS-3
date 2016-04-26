@@ -1,7 +1,7 @@
 #include <iostream>
 #include <fstream>
 
-int n=5;
+int n=11;
 
 using namespace std;
 
